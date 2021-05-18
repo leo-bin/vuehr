@@ -12,6 +12,7 @@ import java.util.List;
  * @时间 2019-10-29 7:42
  */
 public class RespPageBean {
+
     private Long total;
     private List<?> data;
 

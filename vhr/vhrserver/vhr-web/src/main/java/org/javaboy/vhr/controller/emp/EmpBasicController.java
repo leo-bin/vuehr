@@ -24,6 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/employee/basic")
 public class EmpBasicController {
+
     @Autowired
     EmployeeService employeeService;
     @Autowired

@@ -26,8 +26,10 @@ import java.util.Map;
  * @Gitee https://gitee.com/lenve
  */
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
+
     @Autowired
     SessionRegistry sessionRegistry;
+
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         if (!request.getMethod().equals("POST")) {
@@ -40,7 +42,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
             try {
                 loginData = new ObjectMapper().readValue(request.getInputStream(), Map.class);
             } catch (IOException e) {
-            }finally {
+            } finally {
                 String code = loginData.get("code");
                 checkCode(response, code, verify_code);
             }

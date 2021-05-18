@@ -2,13 +2,15 @@
     <div>
         <el-container>
             <el-header class="homeHeader">
-                <div class="title">微人事</div>
+                <div class="title">伯乐-企业人事系统</div>
                 <div>
-                    <el-button icon="el-icon-bell" type="text" style="margin-right: 8px;color: #000000;" size="normal" @click="goChat"></el-button>
+                    <el-button icon="el-icon-chat-dot-square" type="text" style="margin-right: 8px;color: #000000;"
+                               size="normal"
+                               @click="goChat"></el-button>
                     <el-dropdown class="userInfo" @command="commandHandler">
-  <span class="el-dropdown-link">
-    {{user.name}}<i><img :src="user.userface" alt=""></i>
-  </span>
+                   <span class="el-dropdown-link">
+                   {{user.name}}<i><img :src="user.userface" alt=""></i>
+                   </span>
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item command="userinfo">个人中心</el-dropdown-item>
                             <el-dropdown-item command="setting">设置</el-dropdown-item>
@@ -32,12 +34,12 @@
                     </el-menu>
                 </el-aside>
                 <el-main>
-                    <el-breadcrumb separator-class="el-icon-arrow-right" v-if="this.$router.currentRoute.path!='/home'">
+                    <el-breadcrumb separator-class="el-icon-arrow-right" v-if="this.$router.currentRoute.path!=='/home'">
                         <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
                         <el-breadcrumb-item>{{this.$router.currentRoute.name}}</el-breadcrumb-item>
                     </el-breadcrumb>
-                    <div class="homeWelcome" v-if="this.$router.currentRoute.path=='/home'">
-                        欢迎来到微人事！
+                    <div class="homeWelcome" v-if="this.$router.currentRoute.path==='/home'">
+                        欢迎来到伯乐！
                     </div>
                     <router-view class="homeRouterView"/>
                 </el-main>
@@ -67,14 +69,14 @@
                 this.$router.push("/chat");
             },
             commandHandler(cmd) {
-                if (cmd == 'logout') {
+                if (cmd === 'logout') {
                     this.$confirm('此操作将注销登录, 是否继续?', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         type: 'warning'
                     }).then(() => {
                         this.getRequest("/logout");
-                        window.sessionStorage.removeItem("user")
+                        window.sessionStorage.removeItem("user");
                         this.$store.commit('initRoutes', []);
                         this.$router.replace("/");
                     }).catch(() => {
@@ -83,7 +85,7 @@
                             message: '已取消操作'
                         });
                     });
-                }else if (cmd == 'userinfo') {
+                } else if (cmd === 'userinfo') {
                     this.$router.push('/hrinfo');
                 }
             }
@@ -105,7 +107,7 @@
     }
 
     .homeHeader {
-        background-color: #409eff;
+        background-color: #99ccff;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -132,6 +134,8 @@
 
     .el-dropdown-link {
         display: flex;
+        font-size: 15px;
         align-items: center;
+        font-family: "Colonna MT";
     }
 </style>

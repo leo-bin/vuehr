@@ -22,6 +22,7 @@ import java.io.IOException;
  */
 @RestController
 public class LoginController {
+
     @GetMapping("/login")
     public RespBean login() {
         return RespBean.error("尚未登录，请登录!");

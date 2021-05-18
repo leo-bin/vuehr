@@ -1,13 +1,14 @@
 package org.javaboy.mailserver;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MailserverApplicationTests {
+public class MailserverApplicationTests {
 
     @Test
     void contextLoads() {
+
     }
 
 }

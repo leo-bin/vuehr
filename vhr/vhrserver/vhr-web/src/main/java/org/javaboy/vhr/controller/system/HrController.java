@@ -22,10 +22,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/system/hr")
 public class HrController {
+
     @Autowired
     HrService hrService;
     @Autowired
     RoleService roleService;
+
     @GetMapping("/")
     public List<Hr> getAllHrs(String keywords) {
         return hrService.getAllHrs(keywords);
@@ -38,6 +40,7 @@ public class HrController {
         }
         return RespBean.error("更新失败!");
     }
+
     @GetMapping("/roles")
     public List<Role> getAllRoles() {
         return roleService.getAllRoles();

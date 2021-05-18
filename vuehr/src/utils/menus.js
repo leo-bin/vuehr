@@ -6,13 +6,15 @@ export const initMenu = (router, store) => {
     }
     getRequest("/system/config/menu").then(data => {
         if (data) {
+            // 处理返回的json结果
             let fmtRoutes = formatRoutes(data);
             router.addRoutes(fmtRoutes);
             store.commit('initRoutes', fmtRoutes);
             store.dispatch('connect');
         }
     })
-}
+};
+
 export const formatRoutes = (routes) => {
     let fmRoutes = [];
     routes.forEach(router => {
@@ -48,8 +50,8 @@ export const formatRoutes = (routes) => {
                     require(['../views/sys/' + component + '.vue'], resolve);
                 }
             }
-        }
+        };
         fmRoutes.push(fmRouter);
-    })
+    });
     return fmRoutes;
-}
+};

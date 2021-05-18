@@ -20,6 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/system/basic/department")
 public class DepartmentController {
+
     @Autowired
     DepartmentService departmentService;
     @GetMapping("/")

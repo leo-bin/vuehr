@@ -36,11 +36,11 @@
         data() {
             return {
                 loading: false,
-                vcUrl: '/verifyCode?time='+new Date(),
+                vcUrl: '/verifyCode?time=' + new Date(),
                 loginForm: {
                     username: 'admin',
-                    password: '123',
-                    code:''
+                    password: '',
+                    code: ''
                 },
                 checked: true,
                 rules: {
@@ -52,7 +52,7 @@
         },
         methods: {
             updateVerifyCode() {
-                this.vcUrl = '/verifyCode?time='+new Date();
+                this.vcUrl = '/verifyCode?time=' + new Date();
             },
             submitLogin() {
                 this.$refs.loginForm.validate((valid) => {
@@ -60,13 +60,13 @@
                         this.loading = true;
                         this.postRequest('/doLogin', this.loginForm).then(resp => {
                             this.loading = false;
-                            if (resp) {
+                            if (resp.status === 200) {
                                 this.$store.commit('INIT_CURRENTHR', resp.obj);
                                 window.sessionStorage.setItem("user", JSON.stringify(resp.obj));
                                 let path = this.$route.query.redirect;
-                                this.$router.replace((path == '/' || path == undefined) ? '/home' : path);
-                            }else{
-                                this.vcUrl = '/verifyCode?time='+new Date();
+                                this.$router.replace((path === '/' || path === undefined) ? '/home' : path);
+                            } else {
+                                this.vcUrl = '/verifyCode?time=' + new Date();
                             }
                         })
                     } else {
@@ -100,7 +100,8 @@
         text-align: left;
         margin: 0px 0px 15px 0px;
     }
-    .el-form-item__content{
+
+    .el-form-item__content {
         display: flex;
         align-items: center;
     }

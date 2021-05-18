@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/salary/sob")
 public class SalaryController {
+
     @Autowired
     SalaryService salaryService;
 

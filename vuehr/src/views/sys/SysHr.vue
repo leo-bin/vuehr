@@ -1,10 +1,12 @@
 <template>
     <div>
-        <div style="margin-top: 10px;display: flex;justify-content: center">
+        <div style="margin-top: 10px;display: flex;justify-content: left">
             <el-input v-model="keywords" placeholder="通过用户名搜索用户..." prefix-icon="el-icon-search"
                       style="width: 400px;margin-right: 10px" @keydown.enter.native="doSearch"></el-input>
             <el-button icon="el-icon-search" type="primary" @click="doSearch">搜索</el-button>
+            <el-button icon="el-icon-plus" type="primary" @click="showAddUserView">添加操作员</el-button>
         </div>
+
         <div class="hr-container">
             <el-card class="hr-card" v-for="(hr,index) in hrs" :key="index">
                 <div slot="header" class="clearfix">
@@ -57,8 +59,44 @@
                     </div>
                 </div>
             </el-card>
-
         </div>
+
+        <el-dialog
+                :title="title"
+                :visible.sync="dialogVisible"
+                width="80%">
+            <div>
+                <el-form :model="hr" :rules="rules" ref="hrForm">
+                    <el-row>
+                        <el-col :span="6">
+                            <el-form-item label="账号:" prop="username">
+                                <el-input size="mini" style="width: 150px" prefix-icon="el-icon-edit"
+                                          v-model="hr.username"
+                                          placeholder="请输入员工账号（邮箱前缀）"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="6">
+                            <el-form-item label="手机号:" prop="phone">
+                                <el-input size="mini" style="width: 150px" prefix-icon="el-icon-edit"
+                                          v-model="hr.phone"
+                                          placeholder="请输入hr手机号"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="6">
+                            <el-form-item label="座机号:" prop="telephone">
+                                <el-input size="mini" style="width: 150px" prefix-icon="el-icon-edit"
+                                          v-model="hr.telephone"
+                                          placeholder="请输入座机号码"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                </el-form>
+            </div>
+            <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="doAddUser">确 定</el-button>
+  </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -70,7 +108,19 @@
                 keywords: '',
                 hrs: [],
                 selectedRoles: [],
-                allroles: []
+                allroles: [],
+                title: '',
+                dialogVisible: false,
+                hr: {
+                    username: "刘波",
+                    phone: "男",
+                    telephone: "036-88888888",
+                },
+                rules: {
+                    username: [{required: true, message: '请输入hr账号', trigger: 'blur'}],
+                    phone: [{required: true, message: '请输入电话号码', trigger: 'blur'}],
+                    telephone: [{required: true, message: '请输入座机号码', trigger: 'blur'}],
+                }
             }
         },
         mounted() {
@@ -78,12 +128,12 @@
         },
         methods: {
             deleteHr(hr) {
-                this.$confirm('此操作将永久删除【'+hr.name+'】, 是否继续?', '提示', {
+                this.$confirm('此操作将永久删除【' + hr.name + '】, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.deleteRequest("/system/hr/"+hr.id).then(resp=>{
+                    this.deleteRequest("/system/hr/" + hr.id).then(resp => {
                         if (resp) {
                             this.initHrs();
                         }
@@ -98,25 +148,49 @@
             doSearch() {
                 this.initHrs();
             },
+            showAddUserView() {
+                this.emptyHr();
+                this.title = '添加操作员';
+                this.dialogVisible = true;
+            },
+            emptyHr() {
+                this.hr = {
+                    username: "",
+                    phone: "",
+                    telephone: "",
+                }
+            },
+            doAddUser() {
+                this.$refs['hrForm'].validate(valid => {
+                    if (valid) {
+                        this.postRequest("/system/hr/", this.hr).then(resp => {
+                            if (resp) {
+                                this.dialogVisible = false;
+                                this.initHrs();
+                            }
+                        })
+                    }
+                });
+            },
             hidePop(hr) {
                 let roles = [];
                 Object.assign(roles, hr.roles);
                 let flag = false;
-                if (roles.length != this.selectedRoles.length) {
+                if (roles.length !== this.selectedRoles.length) {
                     flag = true;
                 } else {
                     for (let i = 0; i < roles.length; i++) {
                         let role = roles[i];
                         for (let j = 0; j < this.selectedRoles.length; j++) {
                             let sr = this.selectedRoles[j];
-                            if (role.id == sr) {
+                            if (role.id === sr) {
                                 roles.splice(i, 1);
                                 i--;
                                 break;
                             }
                         }
                     }
-                    if (roles.length != 0) {
+                    if (roles.length !== 0) {
                         flag = true;
                     }
                 }
@@ -156,7 +230,7 @@
                 })
             },
             initHrs() {
-                this.getRequest("/system/hr/?keywords="+this.keywords).then(resp => {
+                this.getRequest("/system/hr/?keywords=" + this.keywords).then(resp => {
                     if (resp) {
                         this.hrs = resp;
                     }

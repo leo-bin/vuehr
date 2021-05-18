@@ -22,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/system/config")
 public class SystemConfigController {
+
     @Autowired
     MenuService menuService;
     @GetMapping("/menu")

@@ -11,7 +11,7 @@ proxyObj['/'] = {
     pathRewrite: {
         '^/': ''
     }
-}
+};
 module.exports = {
     devServer: {
         host: 'localhost',
@@ -31,4 +31,4 @@ module.exports = {
             }
         }
     }
-}
+};

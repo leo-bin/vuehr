@@ -7,7 +7,8 @@
                               clearable
                               @clear="initEmps"
                               style="width: 350px;margin-right: 10px" v-model="keyword"
-                              @keydown.enter.native="initEmps" :disabled="showAdvanceSearchView"></el-input>
+                              @keydown.enter.native="initEmps" :disabled="showAdvanceSearchView">
+                    </el-input>
                     <el-button icon="el-icon-search" type="primary" @click="initEmps" :disabled="showAdvanceSearchView">
                         搜索
                     </el-button>
@@ -38,6 +39,7 @@
                     </el-button>
                 </div>
             </div>
+
             <transition name="slide-fade">
                 <div v-show="showAdvanceSearchView"
                      style="border: 1px solid #409eff;border-radius: 5px;box-sizing: border-box;padding: 5px;margin: 10px 0px;">
@@ -129,12 +131,15 @@
                         </el-col>
                         <el-col :span="5" :offset="4">
                             <el-button size="mini">取消</el-button>
-                            <el-button size="mini" icon="el-icon-search" type="primary" @click="initEmps('advanced')">搜索</el-button>
+                            <el-button size="mini" icon="el-icon-search" type="primary" @click="initEmps('advanced')">
+                                搜索
+                            </el-button>
                         </el-col>
                     </el-row>
                 </div>
             </transition>
         </div>
+
         <div style="margin-top: 10px">
             <el-table
                     :data="emps"
@@ -312,6 +317,7 @@
                 </el-pagination>
             </div>
         </div>
+
         <el-dialog
                 :title="title"
                 :visible.sync="dialogVisible"
@@ -423,7 +429,8 @@
                                         width="200"
                                         trigger="manual"
                                         v-model="popVisible">
-                                    <el-tree default-expand-all :data="allDeps" :props="defaultProps" :expand-on-click-node="false"
+                                    <el-tree default-expand-all :data="allDeps" :props="defaultProps"
+                                             :expand-on-click-node="false"
                                              @node-click="handleNodeClick"></el-tree>
                                     <div slot="reference"
                                          style="width: 150px;display: inline-flex;font-size: 13px;border: 1px solid #dedede;height: 26px;border-radius: 5px;cursor: pointer;align-items: center;padding-left: 8px;box-sizing: border-box"
@@ -738,7 +745,7 @@
                     beginContract: "",
                     endContract: "",
                     workAge: null
-                }
+                };
                 this.inputDepName = '';
             },
             showEditEmpView(data) {
@@ -875,7 +882,7 @@
             initEmps(type) {
                 this.loading = true;
                 let url = '/employee/basic/?page=' + this.page + '&size=' + this.size;
-                if (type && type == 'advanced') {
+                if (type && type === 'advanced') {
                     if (this.searchValue.politicId) {
                         url += '&politicId=' + this.searchValue.politicId;
                     }

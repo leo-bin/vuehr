@@ -13,6 +13,7 @@ import java.util.Date;
 
 @Controller
 public class WsController {
+
     @Autowired
     SimpMessagingTemplate simpMessagingTemplate;
 

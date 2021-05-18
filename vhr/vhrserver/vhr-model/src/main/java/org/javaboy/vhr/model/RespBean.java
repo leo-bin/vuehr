@@ -10,6 +10,7 @@ package org.javaboy.vhr.model;
  * @时间 2019-09-20 8:39
  */
 public class RespBean {
+
     private Integer status;
     private String msg;
     private Object obj;

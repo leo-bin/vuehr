@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { Notification } from 'element-ui';
+import {Notification} from 'element-ui';
 import {getRequest} from "../utils/api";
 import '../utils/stomp'
 import '../utils/sockjs'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const now = new Date();
 
@@ -60,12 +60,12 @@ const store = new Vuex.Store({
             context.state.stomp.connect({}, success => {
                 context.state.stomp.subscribe('/user/queue/chat', msg => {
                     let receiveMsg = JSON.parse(msg.body);
-                    if (!context.state.currentSession || receiveMsg.from != context.state.currentSession.username) {
+                    if (!context.state.currentSession || receiveMsg.from !== context.state.currentSession.username) {
                         Notification.info({
                             title: '【' + receiveMsg.fromNickname + '】发来一条消息',
                             message: receiveMsg.content.length > 10 ? receiveMsg.content.substr(0, 10) : receiveMsg.content,
                             position: 'bottom-right'
-                        })
+                        });
                         Vue.set(context.state.isDot, context.state.currentHr.username + '#' + receiveMsg.from, true);
                     }
                     receiveMsg.notSelf = true;
@@ -77,7 +77,7 @@ const store = new Vuex.Store({
             })
         },
         initData(context) {
-            context.commit('INIT_DATA')
+            context.commit('INIT_DATA');
             getRequest("/chat/hrs").then(resp => {
                 if (resp) {
                     context.commit('INIT_HR', resp);
@@ -85,15 +85,15 @@ const store = new Vuex.Store({
             })
         }
     }
-})
+});
 
 store.watch(function (state) {
     return state.sessions
 }, function (val) {
     localStorage.setItem('vue-chat-session', JSON.stringify(val));
 }, {
-    deep: true/*这个貌似是开启watch监测的判断,官方说明也比较模糊*/
-})
+    deep: true /*这个貌似是开启watch监测的判断,官方说明也比较模糊*/
+});
 
 
 export default store;

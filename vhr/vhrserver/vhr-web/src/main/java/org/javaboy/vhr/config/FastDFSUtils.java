@@ -19,6 +19,7 @@ import java.io.IOException;
  * @时间 2020-03-02 23:26
  */
 public class FastDFSUtils {
+
     private static StorageClient1 client1;
 
     static {

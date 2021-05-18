@@ -5,7 +5,7 @@ import Home from './views/Home.vue'
 import FriendChat from './views/chat/FriendChat.vue'
 import HrInfo from './views/HrInfo.vue'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
     routes: [

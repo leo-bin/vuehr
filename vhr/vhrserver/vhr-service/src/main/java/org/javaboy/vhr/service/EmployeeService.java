@@ -29,6 +29,7 @@ import java.util.UUID;
  */
 @Service
 public class EmployeeService {
+
     @Autowired
     EmployeeMapper employeeMapper;
     @Autowired
@@ -36,6 +37,7 @@ public class EmployeeService {
     @Autowired
     MailSendLogService mailSendLogService;
     public final static Logger logger = LoggerFactory.getLogger(EmployeeService.class);
+
     SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
     SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
     DecimalFormat decimalFormat = new DecimalFormat("##.00");

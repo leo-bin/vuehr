@@ -6,50 +6,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Employee implements Serializable {
+
     private Integer id;
 
     private String name;
 
     private String gender;
-
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", gender='" + gender + '\'' +
-                ", birthday=" + birthday +
-                ", idCard='" + idCard + '\'' +
-                ", wedlock='" + wedlock + '\'' +
-                ", nationId=" + nationId +
-                ", nativePlace='" + nativePlace + '\'' +
-                ", politicId=" + politicId +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", address='" + address + '\'' +
-                ", departmentId=" + departmentId +
-                ", jobLevelId=" + jobLevelId +
-                ", posId=" + posId +
-                ", engageForm='" + engageForm + '\'' +
-                ", tiptopDegree='" + tiptopDegree + '\'' +
-                ", specialty='" + specialty + '\'' +
-                ", school='" + school + '\'' +
-                ", beginDate=" + beginDate +
-                ", workState='" + workState + '\'' +
-                ", workID='" + workID + '\'' +
-                ", contractTerm=" + contractTerm +
-                ", conversionTime=" + conversionTime +
-                ", notWorkDate=" + notWorkDate +
-                ", beginContract=" + beginContract +
-                ", endContract=" + endContract +
-                ", workAge=" + workAge +
-                ", nation=" + nation +
-                ", politicsstatus=" + politicsstatus +
-                ", department=" + department +
-                ", jobLevel=" + jobLevel +
-                ", position=" + position +
-                '}';
-    }
 
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     private Date birthday;
@@ -112,6 +74,45 @@ public class Employee implements Serializable {
     private JobLevel jobLevel;
     private Position position;
     private Salary salary;
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", birthday=" + birthday +
+                ", idCard='" + idCard + '\'' +
+                ", wedlock='" + wedlock + '\'' +
+                ", nationId=" + nationId +
+                ", nativePlace='" + nativePlace + '\'' +
+                ", politicId=" + politicId +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", departmentId=" + departmentId +
+                ", jobLevelId=" + jobLevelId +
+                ", posId=" + posId +
+                ", engageForm='" + engageForm + '\'' +
+                ", tiptopDegree='" + tiptopDegree + '\'' +
+                ", specialty='" + specialty + '\'' +
+                ", school='" + school + '\'' +
+                ", beginDate=" + beginDate +
+                ", workState='" + workState + '\'' +
+                ", workID='" + workID + '\'' +
+                ", contractTerm=" + contractTerm +
+                ", conversionTime=" + conversionTime +
+                ", notWorkDate=" + notWorkDate +
+                ", beginContract=" + beginContract +
+                ", endContract=" + endContract +
+                ", workAge=" + workAge +
+                ", nation=" + nation +
+                ", politicsstatus=" + politicsstatus +
+                ", department=" + department +
+                ", jobLevel=" + jobLevel +
+                ", position=" + position +
+                '}';
+    }
 
     public Salary getSalary() {
         return salary;

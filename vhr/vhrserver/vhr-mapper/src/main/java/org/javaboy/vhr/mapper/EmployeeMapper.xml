@@ -54,14 +54,15 @@
         </association>
     </resultMap>
     <sql id="Base_Column_List">
-    id, name, gender, birthday, idCard, wedlock, nationId, nativePlace, politicId, email, 
+        id, name, gender, birthday, idCard, wedlock, nationId, nativePlace, politicId, email,
     phone, address, departmentId, jobLevelId, posId, engageForm, tiptopDegree, specialty, 
     school, beginDate, workState, workID, contractTerm, conversionTime, notWorkDate, 
     beginContract, endContract, workAge
-  </sql>
+    </sql>
     <select id="maxWorkID" resultType="java.lang.Integer">
-    select max(workID) from employee
-  </select>
+        select max(workID)
+        from employee
+    </select>
     <resultMap id="EmployeeWithSalary" type="org.javaboy.vhr.model.Employee" extends="BaseResultMap">
         <association property="salary" javaType="org.javaboy.vhr.model.Salary">
             <id column="sid" property="id" jdbcType="INTEGER"/>
@@ -97,13 +98,34 @@
         </if>
     </select>
     <insert id="updateEmployeeSalaryById">
-        REPLACE INTO empsalary (eid,sid) VALUES(#{eid},#{sid})
+        REPLACE INTO empsalary (eid, sid)
+        VALUES (#{eid}, #{sid})
     </insert>
     <select id="getEmployeeById" resultMap="AllEmployeeInfo">
-        select e.*,p.`id` as pid,p.`name` as pname,n.`id` as nid,n.`name` as nname,d.`id` as did,d.`name` as
-        dname,j.`id` as jid,j.`name` as jname,pos.`id` as posid,pos.`name` as posname from employee e,nation
-        n,politicsstatus p,department d,joblevel j,position pos where e.`nationId`=n.`id` and e.`politicId`=p.`id` and
-        e.`departmentId`=d.`id` and e.`jobLevelId`=j.`id` and e.`posId`=pos.`id` and e.`id`=#{id}
+        select e.*,
+               p.`id`     as pid,
+               p.`name`   as pname,
+               n.`id`     as nid,
+               n.`name`   as nname,
+               d.`id`     as did,
+               d.`name`   as
+                             dname,
+               j.`id`     as jid,
+               j.`name`   as jname,
+               pos.`id`   as posid,
+               pos.`name` as posname
+        from employee e,
+             nation n,
+             politicsstatus p,
+             department d,
+             joblevel j,
+             position pos
+        where e.`nationId` = n.`id`
+          and e.`politicId` = p.`id`
+          and e.`departmentId` = d.`id`
+          and e.`jobLevelId` = j.`id`
+          and e.`posId` = pos.`id`
+          and e.`id` = #{id}
     </select>
     <select id="getEmployeeByPage" resultMap="AllEmployeeInfo">
         select e.*,p.`id` as pid,p.`name` as pname,n.`id` as nid,n.`name` as nname,d.`id` as did,d.`name` as
@@ -138,6 +160,7 @@
             limit #{page},#{size}
         </if>
     </select>
+
     <select id="getTotal" resultType="java.lang.Long">
         select count(*) from employee e
         <where>
@@ -169,6 +192,7 @@
             </if>
         </where>
     </select>
+
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
@@ -176,9 +200,10 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from employee
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+        delete
+        from employee
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <insert id="addEmps">
         insert into employee (name, gender,
         birthday, idCard, wedlock, nationId,
@@ -206,27 +231,26 @@
         </foreach>
     </insert>
     <insert id="insert" parameterType="org.javaboy.vhr.model.Employee">
-    insert into employee (id, name, gender, 
-      birthday, idCard, wedlock, nationId, 
-      nativePlace, politicId, email, 
-      phone, address, departmentId, 
-      jobLevelId, posId, engageForm, 
-      tiptopDegree, specialty, school, 
-      beginDate, workState, workID, 
-      contractTerm, conversionTime, notWorkDate, 
-      beginContract, endContract, workAge
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR}, 
-      #{birthday,jdbcType=DATE}, #{idCard,jdbcType=CHAR}, #{wedlock,jdbcType=CHAR}, #{nationId,jdbcType=INTEGER}, 
-      #{nativePlace,jdbcType=VARCHAR}, #{politicId,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER}, 
-      #{jobLevelId,jdbcType=INTEGER}, #{posId,jdbcType=INTEGER}, #{engageForm,jdbcType=VARCHAR}, 
-      #{tiptopDegree,jdbcType=CHAR}, #{specialty,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, 
-      #{beginDate,jdbcType=DATE}, #{workState,jdbcType=CHAR}, #{workID,jdbcType=CHAR}, 
-      #{contractTerm,jdbcType=DOUBLE}, #{conversionTime,jdbcType=DATE}, #{notWorkDate,jdbcType=DATE}, 
-      #{beginContract,jdbcType=DATE}, #{endContract,jdbcType=DATE}, #{workAge,jdbcType=INTEGER}
-      )
-  </insert>
+        insert into employee (id, name, gender,
+                              birthday, idCard, wedlock, nationId,
+                              nativePlace, politicId, email,
+                              phone, address, departmentId,
+                              jobLevelId, posId, engageForm,
+                              tiptopDegree, specialty, school,
+                              beginDate, workState, workID,
+                              contractTerm, conversionTime, notWorkDate,
+                              beginContract, endContract, workAge)
+        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR},
+                #{birthday,jdbcType=DATE}, #{idCard,jdbcType=CHAR}, #{wedlock,jdbcType=CHAR},
+                #{nationId,jdbcType=INTEGER},
+                #{nativePlace,jdbcType=VARCHAR}, #{politicId,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR},
+                #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER},
+                #{jobLevelId,jdbcType=INTEGER}, #{posId,jdbcType=INTEGER}, #{engageForm,jdbcType=VARCHAR},
+                #{tiptopDegree,jdbcType=CHAR}, #{specialty,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR},
+                #{beginDate,jdbcType=DATE}, #{workState,jdbcType=CHAR}, #{workID,jdbcType=CHAR},
+                #{contractTerm,jdbcType=DOUBLE}, #{conversionTime,jdbcType=DATE}, #{notWorkDate,jdbcType=DATE},
+                #{beginContract,jdbcType=DATE}, #{endContract,jdbcType=DATE}, #{workAge,jdbcType=INTEGER})
+    </insert>
     <insert id="insertSelective" parameterType="org.javaboy.vhr.model.Employee" useGeneratedKeys="true"
             keyProperty="id">
         insert into employee
@@ -491,34 +515,34 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="org.javaboy.vhr.model.Employee">
-    update employee
-    set name = #{name,jdbcType=VARCHAR},
-      gender = #{gender,jdbcType=CHAR},
-      birthday = #{birthday,jdbcType=DATE},
-      idCard = #{idCard,jdbcType=CHAR},
-      wedlock = #{wedlock,jdbcType=CHAR},
-      nationId = #{nationId,jdbcType=INTEGER},
-      nativePlace = #{nativePlace,jdbcType=VARCHAR},
-      politicId = #{politicId,jdbcType=INTEGER},
-      email = #{email,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR},
-      departmentId = #{departmentId,jdbcType=INTEGER},
-      jobLevelId = #{jobLevelId,jdbcType=INTEGER},
-      posId = #{posId,jdbcType=INTEGER},
-      engageForm = #{engageForm,jdbcType=VARCHAR},
-      tiptopDegree = #{tiptopDegree,jdbcType=CHAR},
-      specialty = #{specialty,jdbcType=VARCHAR},
-      school = #{school,jdbcType=VARCHAR},
-      beginDate = #{beginDate,jdbcType=DATE},
-      workState = #{workState,jdbcType=CHAR},
-      workID = #{workID,jdbcType=CHAR},
-      contractTerm = #{contractTerm,jdbcType=DOUBLE},
-      conversionTime = #{conversionTime,jdbcType=DATE},
-      notWorkDate = #{notWorkDate,jdbcType=DATE},
-      beginContract = #{beginContract,jdbcType=DATE},
-      endContract = #{endContract,jdbcType=DATE},
-      workAge = #{workAge,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        update employee
+        set name           = #{name,jdbcType=VARCHAR},
+            gender         = #{gender,jdbcType=CHAR},
+            birthday       = #{birthday,jdbcType=DATE},
+            idCard         = #{idCard,jdbcType=CHAR},
+            wedlock        = #{wedlock,jdbcType=CHAR},
+            nationId       = #{nationId,jdbcType=INTEGER},
+            nativePlace    = #{nativePlace,jdbcType=VARCHAR},
+            politicId      = #{politicId,jdbcType=INTEGER},
+            email          = #{email,jdbcType=VARCHAR},
+            phone          = #{phone,jdbcType=VARCHAR},
+            address        = #{address,jdbcType=VARCHAR},
+            departmentId   = #{departmentId,jdbcType=INTEGER},
+            jobLevelId     = #{jobLevelId,jdbcType=INTEGER},
+            posId          = #{posId,jdbcType=INTEGER},
+            engageForm     = #{engageForm,jdbcType=VARCHAR},
+            tiptopDegree   = #{tiptopDegree,jdbcType=CHAR},
+            specialty      = #{specialty,jdbcType=VARCHAR},
+            school         = #{school,jdbcType=VARCHAR},
+            beginDate      = #{beginDate,jdbcType=DATE},
+            workState      = #{workState,jdbcType=CHAR},
+            workID         = #{workID,jdbcType=CHAR},
+            contractTerm   = #{contractTerm,jdbcType=DOUBLE},
+            conversionTime = #{conversionTime,jdbcType=DATE},
+            notWorkDate    = #{notWorkDate,jdbcType=DATE},
+            beginContract  = #{beginContract,jdbcType=DATE},
+            endContract    = #{endContract,jdbcType=DATE},
+            workAge        = #{workAge,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

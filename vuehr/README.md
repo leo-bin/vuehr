@@ -2,4 +2,4 @@
 
 1. sessionStorage
 2. localStorage
-**3. vuex**
+3. vuex

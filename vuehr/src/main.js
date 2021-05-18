@@ -97,8 +97,8 @@ Vue.use(Icon);
 Vue.use(Select);
 Vue.use(Form);
 Vue.use(Tag);
-Vue.prototype.$alert = MessageBox.alert
-Vue.prototype.$confirm = MessageBox.confirm
+Vue.prototype.$alert = MessageBox.alert;
+Vue.prototype.$confirm = MessageBox.confirm;
 
 import {postRequest} from "./utils/api";
 import {postKeyValueRequest} from "./utils/api";
@@ -114,10 +114,11 @@ Vue.prototype.putRequest = putRequest;
 Vue.prototype.deleteRequest = deleteRequest;
 Vue.prototype.getRequest = getRequest;
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
+// 全局路由守护
 router.beforeEach((to, from, next) => {
-    if (to.path == '/') {
+    if (to.path === '/') {
         next();
     } else {
         if (window.sessionStorage.getItem("user")) {
@@ -127,10 +128,10 @@ router.beforeEach((to, from, next) => {
             next('/?redirect=' + to.path);
         }
     }
-})
+});
 
 new Vue({
     router,
     store,
     render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');

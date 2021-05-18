@@ -16,6 +16,7 @@
     import JobLevelMana from '../../components/sys/basic/JobLevelMana'
     import EcMana from '../../components/sys/basic/EcMana'
     import PermissMana from '../../components/sys/basic/PermissMana'
+
     export default {
         name: "SysBasic",
         data(){

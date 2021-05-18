@@ -2,7 +2,9 @@ package org.javaboy.vhr.model;
 
 import java.util.Date;
 
+//评价
 public class Appraise {
+
     private Integer id;
 
     private Integer eid;

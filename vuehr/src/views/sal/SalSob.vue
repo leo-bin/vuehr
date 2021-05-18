@@ -4,6 +4,7 @@
             <el-button icon="el-icon-plus" type="primary" @click="showAddSalaryView">添加工资账套</el-button>
             <el-button icon="el-icon-refresh" type="success" @click="initSalaries"></el-button>
         </div>
+
         <div style="margin-top: 10px">
             <el-table :data="salaries" border stripe>
                 <el-table-column type="selection" width="55"></el-table-column>
@@ -33,6 +34,7 @@
                 </el-table-column>
             </el-table>
         </div>
+
         <el-dialog
                 :title="dialogTitle"
                 :visible.sync="dialogVisible"
@@ -43,13 +45,14 @@
                 </el-steps>
                 <el-input v-model="salary[title]" :placeholder="'请输入'+salaryItemName[index]+'...'"
                           v-for="(value,title,index) in salary"
-                          :key="index" v-show="activeItemIndex==index" style="width: 200px"></el-input>
+                          :key="index" v-show="activeItemIndex===index" style="width: 200px"></el-input>
             </div>
             <span slot="footer" class="dialog-footer">
-    <el-button @click="preStep">{{activeItemIndex==10?'取消':'上一步'}}</el-button>
-    <el-button type="primary" @click="nextStep">{{activeItemIndex==10?'完成':'下一步'}}</el-button>
+    <el-button @click="preStep">{{'上一步'}}</el-button>
+    <el-button type="primary" @click="nextStep">{{activeItemIndex===10?'完成':'下一步'}}</el-button>
   </span>
         </el-dialog>
+
     </div>
 </template>
 
@@ -125,19 +128,15 @@
                 })
             },
             preStep() {
-                if (this.activeItemIndex == 0) {
-                    return;
-                } else if (this.activeItemIndex == 10) {
-                    //关闭对话框
-                    this.dialogVisible = false;
+                if (this.activeItemIndex === 0) {
                     return;
                 }
                 this.activeItemIndex--;
             },
             nextStep() {
-                if (this.activeItemIndex == 10) {
+                if (this.activeItemIndex === 10) {
                     if (this.salary.id) {
-                        this.putRequest("/salary/sob/", this.salary).then(resp=>{
+                        this.putRequest("/salary/sob/", this.salary).then(resp => {
                             if (resp) {
                                 this.initSalaries();
                                 this.dialogVisible = false;

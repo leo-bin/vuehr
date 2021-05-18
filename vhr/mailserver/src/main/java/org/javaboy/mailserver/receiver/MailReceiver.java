@@ -5,6 +5,7 @@ import org.javaboy.vhr.model.Employee;
 import org.javaboy.vhr.model.MailConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.stereotype.Component;
@@ -23,15 +25,7 @@ import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.util.Date;
 
-/**
- * @作者 江南一点雨
- * @公众号 江南一点雨
- * @微信号 a_java_boy
- * @GitHub https://github.com/lenve
- * @博客 http://wangsong.blog.csdn.net
- * @网站 http://www.javaboy.org
- * @时间 2019-11-24 7:59
- */
+
 @Component
 public class MailReceiver {
 
@@ -55,7 +49,8 @@ public class MailReceiver {
         if (redisTemplate.opsForHash().entries("mail_log").containsKey(msgId)) {
             //redis 中包含该 key，说明该消息已经被消费过
             logger.info(msgId + ":消息已经被消费");
-            channel.basicAck(tag, false);//确认消息已消费
+            //确认消息已消费
+            channel.basicAck(tag, false);
             return;
         }
         //收到消息，发送邮件

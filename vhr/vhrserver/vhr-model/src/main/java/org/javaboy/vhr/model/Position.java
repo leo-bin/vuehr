@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Position implements Serializable {
+
     private Integer id;
 
     @Override
@@ -19,7 +20,6 @@ public class Position implements Serializable {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(name);
     }
 
